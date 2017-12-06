@@ -18,11 +18,37 @@
 
   # Services to enable:
 
+  # Enable dbus.
+  services.dbus.enable = true;
+
+  # Select internationalisation properties.
+  i18n = {
+    consoleFont = "Lat2-Terminus16";
+    consoleKeyMap = "no-latin1";
+    defaultLocale = "en_US.UTF-8";
+  };
+
+  # Set your time zone.
+  time.timeZone = "Europe/Oslo";
+
+  # Some programs need SUID wrappers, can be configured further or are
+  # started in user sessions.
+  programs.bash.enableCompletion = true;
+  programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
+
+  # List services that you want to enable:
+
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
-  # Enable DBus.
-  services.dbus.enable = true;
+  # Enable the X11 windowing system.
+  services.xserver.enable = true;
+  services.xserver.layout = "us";
+  services.xserver.xkbOptions = "eurosign:e";
+
+  # Enable the KDE Desktop Environment.
+  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.desktopManager.plasma5.enable = true;
 
   # Replace nptd by timesyncd.
   services.timesyncd.enable = true;
@@ -44,9 +70,10 @@
     nfs-utils
     rsync
     (python27.withPackages(ps: with ps; [ pip virtualenv wheel jedi flake8 importmagic autopep8 yapf ]))
-    (python35.withPackages(ps: with ps; [ pip wheel jedi flake8 importmagic autopep8 yapf ]))
+    (python36.withPackages(ps: with ps; [ pip wheel jedi flake8 importmagic autopep8 yapf ]))
     awscli
     emacs
+    firefoxPackages.tor-browser
     curlFull
     docker-edge
     hunspell

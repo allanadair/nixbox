@@ -24,7 +24,7 @@
           "modifyvm",
           "{{.Name}}",
           "--memory",
-          "4096"
+          "6144"
         ]
       ]
     }
@@ -39,7 +39,7 @@
     [
       {
         "type": "vagrant",
-        "output": "nixbox-17.09-workstation-{{.Provider}}.box"
+        "output": "nixos-17.09-workstation-{{.Provider}}.box"
       }
     ]
   ]
