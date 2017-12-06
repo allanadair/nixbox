@@ -21,14 +21,17 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
-  # Enable DBus
-  services.dbus.enable    = true;
+  # Enable DBus.
+  services.dbus.enable = true;
 
-  # Replace nptd by timesyncd
+  # Replace nptd by timesyncd.
   services.timesyncd.enable = true;
 
   # Enable guest additions.
   virtualisation.virtualbox.guest.enable = true;
+
+  # Enabel docker.
+  virtualisation.docker.enable = true;	
 
   # Packages for Vagrant
   environment.systemPackages = with pkgs; [
@@ -40,8 +43,23 @@
     netcat
     nfs-utils
     rsync
+    (python27.withPackages(ps: with ps; [ pip virtualenv wheel jedi flake8 importmagic autopep8 yapf ]))
+    (python35.withPackages(ps: with ps; [ pip wheel jedi flake8 importmagic autopep8 yapf ]))
+    awscli
+    emacs
+    curlFull
+    docker-edge
+    hunspell
+    hunspellDicts.en-us
+    gitAndTools.gitFull
+    p7zip
+    plantuml
+    tree
   ];
 
+  # Users that are part of the wheel group will not be prompted for password
+  security.sudo.wheelNeedsPassword = false;
+  
   # Creates a "vagrant" users with password-less sudo access
   users = {
     extraGroups = [ { name = "vagrant"; } { name = "vboxsf"; } ];
@@ -63,16 +81,5 @@
       }
     ];
   };
-
-  security.sudo.configFile =
-    ''
-      Defaults:root,%wheel env_keep+=LOCALE_ARCHIVE
-      Defaults:root,%wheel env_keep+=NIX_PATH
-      Defaults:root,%wheel env_keep+=TERMINFO_DIRS
-      Defaults env_keep+=SSH_AUTH_SOCK
-      Defaults lecture = never
-      root   ALL=(ALL) SETENV: ALL
-      %wheel ALL=(ALL) NOPASSWD: ALL, SETENV: ALL
-    '';
 
 }
