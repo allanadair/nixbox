@@ -13,7 +13,7 @@
 (setq use-package-always-ensure t)
 
 ;; theme and appearance
-(load-theme 'adwaita)
+(load-theme 'deeper-blue)
 (setq column-number-mode t)
 (setq inhibit-startup-screen t)
 (menu-bar-mode -1)
