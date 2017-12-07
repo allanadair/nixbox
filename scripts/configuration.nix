@@ -72,7 +72,7 @@
     (python36.withPackages(ps: with ps; [ pip wheel jedi flake8 importmagic autopep8 yapf ]))
     awscli
     emacs
-    firefoxPackages.tor-browser
+    firefox
     curlFull
     docker-edge
     hunspell
