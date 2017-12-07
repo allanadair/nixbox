@@ -105,26 +105,3 @@
 
 ;; kubernetes
 (use-package kubernetes)
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" "b550fc3d6f0407185ace746913449f6ed5ddc4a9f0cf3be218af4fb3127c7877" default)))
- '(erc-modules
-   (quote
-    (autojoin button completion fill irccontrols list log match menu move-to-prompt netsplit networks noncommands readonly ring smiley stamp spelling track)))
- '(ispell-check-comments t)
- '(package-selected-packages
-   (quote
-    (color-theme-solarized editorconfig editorconfig-charset-extras editorconfig-custom-majormode editorconfig-domain-specific restclient dockerfile-mode yaml-mode elpy magit markdown-mode org nix-mode undo-tree kubernetes)))
- '(yas-indent-line (quote auto)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
