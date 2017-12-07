@@ -96,7 +96,7 @@
         description     = "Vagrant User";
         name            = "vagrant";
         group           = "vagrant";
-        extraGroups     = [ "users" "vboxsf" "wheel" ];
+        extraGroups     = [ "users" "vboxsf" "wheel" "docker" ];
         password        = "vagrant";
         home            = "/home/vagrant";
         createHome      = true;
