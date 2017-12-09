@@ -12,8 +12,12 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+;; melpa
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+
 ;; theme and appearance
-(load-theme 'deeper-blue)
+(use-package gotham-theme)
+(load-theme 'gotham t)
 (setq column-number-mode t)
 (setq inhibit-startup-screen t)
 (menu-bar-mode -1)
@@ -37,9 +41,6 @@
 (set-face-background 'show-paren-match (face-background 'default))
 (set-face-foreground 'show-paren-match "#def")
 (set-face-attribute 'show-paren-match nil :weight 'extra-bold)
-
-;; melpa
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
 
 ;; elpy for Python development
 (use-package elpy
@@ -67,7 +68,6 @@
 ;; helm
 (use-package helm)
 (use-package helm-pydoc)
-
 
 ;; yaml
 (use-package yaml-mode
