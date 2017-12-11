@@ -73,6 +73,7 @@
     awscli
     emacs
     firefox
+    kubernetes
     curlFull
     docker-edge
     hunspell
