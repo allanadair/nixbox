@@ -16,18 +16,14 @@
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
 
 ;; theme and appearance
+(setq inhibit-startup-screen t)
 (use-package gotham-theme)
 (load-theme 'gotham t)
 (setq column-number-mode t)
-(setq inhibit-startup-screen t)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (setq default-directory "~")
-
-;; default major mode
-(setq initial-major-mode 'text-mode)
-(setq initial-scratch-message nil)
 
 ;; spelling (hunspell must be on system path)
 (setq ispell-program-name "hunspell")
@@ -63,11 +59,9 @@
   (define-key global-map "\C-cl" 'org-store-link)
   (define-key global-map "\C-ca" 'org-agenda)
   (setq org-log-done t)
+  (setq org-clock-persist 'history)
+  (org-clock-persistence-insinuate)
   )
-
-;; helm
-(use-package helm)
-(use-package helm-pydoc)
 
 ;; yaml
 (use-package yaml-mode
