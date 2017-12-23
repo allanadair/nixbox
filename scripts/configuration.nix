@@ -4,8 +4,10 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./vagrant.nix
     ];
+
+  # hostname
+  networking.hostName = "nixos";
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
@@ -47,6 +49,9 @@
 
   # Enable the KDE Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
+  services.xserver.displayManager.sddm.autoLogin.enable = true;
+  services.xserver.displayManager.sddm.autoLogin.relogin = true;
+  services.xserver.displayManager.sddm.autoLogin.user = "vagrant";
   services.xserver.desktopManager.plasma5.enable = true;
 
   # Replace nptd by timesyncd.
@@ -55,7 +60,7 @@
   # Enable guest additions.
   virtualisation.virtualbox.guest.enable = true;
 
-  # Enabel docker.
+  # Enable docker.
   virtualisation.docker.enable = true;	
 
   # Packages for Vagrant

@@ -20,6 +20,7 @@ Vagrant.configure("2") do |config|
     vb.cpus = "4"
     vb.memory = "8192"
     vb.customize ["modifyvm", :id, "--vram", "128"]
+	vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     vb.gui = true
     vb.name = "workstation"
   end
