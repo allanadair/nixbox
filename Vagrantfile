@@ -10,10 +10,10 @@ Vagrant.configure("2") do |config|
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
   config.vm.provider "virtualbox" do |vb|
-    vb.cpus = "4"
+    vb.cpus = "2"
     vb.memory = "8192"
     vb.customize ["modifyvm", :id, "--vram", "128"]
-	vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+    vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     vb.gui = true
     vb.name = "workstation"
   end
