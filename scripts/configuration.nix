@@ -6,9 +6,6 @@
       ./hardware-configuration.nix
     ];
 
-  # hostname
-  networking.hostName = "nixos";
-
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
@@ -61,7 +58,14 @@
   virtualisation.virtualbox.guest.enable = true;
 
   # Enable docker.
-  virtualisation.docker.enable = true;	
+  virtualisation.docker.enable = true;
+  
+  # Mount NFS.
+  fileSystems."/efs/servicedata" =
+    {
+      device = "10.1.43.187:/servicedata";
+      fsType = "nfs";
+    };
 
   # Packages for Vagrant
   environment.systemPackages = with pkgs; [
