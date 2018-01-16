@@ -1,13 +1,6 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "nixos-17.09-workstation-virtualbox.box"
 
-  # Create a forwarded port mapping which allows access to a specific port
-  # within the machine from a port on the host machine. In the example below,
-  # accessing "localhost:8080" will access port 80 on the guest machine.
-  # NOTE: This will enable public access to the opened port
-  config.vm.network "forwarded_port", guest: 6080, host: 6080
-  config.vm.network "forwarded_port", guest: 6443, host: 6443
-
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
