@@ -14,6 +14,11 @@
   # remove the fsck that runs at startup. It will always fail to run, stopping
   # your boot until you press *. 
   boot.initrd.checkJournalingFS = false;
+  
+  # custom name servers
+  networking = {
+    nameservers = [ "ns-1536.awsdns-00.co.uk" "ns-0.awsdns-00.com" "ns-1024.awsdns-00.org" "ns-512.awsdns-00.net" ];
+  };
 
   # Services to enable:
 
@@ -60,10 +65,16 @@
   # Enable docker.
   virtualisation.docker.enable = true;
   
-  # Mount NFS.
+  # Mount NFS volumes (k8sprod2).
   fileSystems."/efs/servicedata" =
     {
-      device = "10.1.43.187:/servicedata";
+      device = "gdo-servicedata.gdo.aws.:/servicedata/";
+      fsType = "nfs";
+    };
+
+  fileSystems."/efs/sharedarcgis" =
+    {
+      device = "k8s-prod2-prereq-agsbackbone.gdo.aws.:/sharedarcgis/";
       fsType = "nfs";
     };
 
