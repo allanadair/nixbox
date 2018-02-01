@@ -17,7 +17,12 @@
   
   # custom name servers
   networking = {
-    nameservers = [ "ns-1536.awsdns-00.co.uk" "ns-0.awsdns-00.com" "ns-1024.awsdns-00.org" "ns-512.awsdns-00.net" ];
+    nameservers = [
+	  "ns-1536.awsdns-00.co.uk"
+	  "ns-0.awsdns-00.com"
+	  "ns-1024.awsdns-00.org"
+	  "ns-512.awsdns-00.net"
+	];
   };
 
   # Services to enable:
