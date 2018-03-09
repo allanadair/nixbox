@@ -4,6 +4,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./vagrant.nix
     ];
 
   # Use the GRUB 2 boot loader.
@@ -14,15 +15,14 @@
   # remove the fsck that runs at startup. It will always fail to run, stopping
   # your boot until you press *. 
   boot.initrd.checkJournalingFS = false;
-  
-  # custom name servers
+
   networking = {
     nameservers = [
-	  "ns-1536.awsdns-00.co.uk"
-	  "ns-0.awsdns-00.com"
-	  "ns-1024.awsdns-00.org"
-	  "ns-512.awsdns-00.net"
-	];
+      "ns-1536.awsdns-00.co.uk"
+      "ns-0.awsdns-00.com"
+      "ns-1024.awsdns-00.org"
+      "ns-512.awsdns-00.net"
+    ];
   };
 
   # Services to enable:
@@ -69,8 +69,7 @@
 
   # Enable docker.
   virtualisation.docker.enable = true;
-  
-  # Mount NFS volumes (k8sprod2).
+
   fileSystems."/efs/servicedata" =
     {
       device = "gdo-servicedata.gdo.aws.:/servicedata/";
@@ -95,15 +94,15 @@
     rsync
     (python27.withPackages(ps: with ps; [ pip virtualenv wheel jedi flake8 importmagic autopep8 yapf ]))
     (python36.withPackages(ps: with ps; [ pip wheel jedi flake8 importmagic autopep8 yapf ]))
-    awscli
-    emacs
-    firefox
-    kubernetes
+    aws
     curlFull
     docker-edge
+    emacs
+    firefox
+    gitAndTools.gitFull
     hunspell
     hunspellDicts.en-us
-    gitAndTools.gitFull
+    nodejs-8_x
     p7zip
     plantuml
     tree
