@@ -15,7 +15,7 @@ Vagrant.configure("2") do |config|
     vb.customize ["modifyvm", :id, "--vram", "128"]
     vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     vb.gui = true
-    vb.name = "workstation"
+    vb.name = "nixos-workstation-18.03"
   end
 
   config.vm.provision :file do |file|
