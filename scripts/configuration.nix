@@ -93,7 +93,6 @@
     rsync
     (python27.withPackages(ps: with ps; [ pip virtualenv wheel jedi flake8 yapf ]))
     (python36.withPackages(ps: with ps; [ pip wheel jedi flake8 yapf ]))
-    aws
     curlFull
     docker-edge
     emacs
