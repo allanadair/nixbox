@@ -81,14 +81,12 @@
 ;; markdown
 (use-package markdown-mode)
 
-;; restclient
-(use-package restclient)
-
 ;; editorconfig
 (use-package editorconfig
   :ensure t
   :config
-  (editorconfig-mode 1))
+  (editorconfig-mode 1)
+  )
 
 ;; nix
 (use-package nix-mode)
@@ -96,7 +94,8 @@
 ;; undo-tree
 (use-package undo-tree
   :config
-  (global-undo-tree-mode))
+  (global-undo-tree-mode)
+  )
 
 ;; kubernetes
 (use-package kubernetes)

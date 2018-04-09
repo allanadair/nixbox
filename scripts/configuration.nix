@@ -4,7 +4,6 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./vagrant.nix
     ];
 
   # Use the GRUB 2 boot loader.
@@ -92,8 +91,8 @@
     netcat
     nfs-utils
     rsync
-    (python27.withPackages(ps: with ps; [ pip virtualenv wheel jedi flake8 importmagic autopep8 yapf ]))
-    (python36.withPackages(ps: with ps; [ pip wheel jedi flake8 importmagic autopep8 yapf ]))
+    (python27.withPackages(ps: with ps; [ pip virtualenv wheel jedi flake8 yapf ]))
+    (python36.withPackages(ps: with ps; [ pip wheel jedi flake8 yapf ]))
     aws
     curlFull
     docker-edge
@@ -102,9 +101,7 @@
     gitAndTools.gitFull
     hunspell
     hunspellDicts.en-us
-    nodejs-8_x
     p7zip
-    plantuml
     tree
   ];
 

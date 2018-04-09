@@ -1,5 +1,5 @@
 Vagrant.configure("2") do |config|
-  config.vm.box = "nixos-17.09-workstation-virtualbox.box"
+  config.vm.box = "nixos-18.03-workstation-virtualbox.box"
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is

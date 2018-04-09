@@ -1,7 +1,7 @@
 {
   "builders": [
     {
-      "boot_wait": "30s",
+      "boot_wait": "60s",
       "boot_command": [
         "echo http://{{ .HTTPIP }}:{{ .HTTPPort}} > .packer_http<enter>",
         "mkdir -m 0700 .ssh<enter>",
@@ -15,8 +15,8 @@
       "ssh_port": 22,
       "ssh_username": "root",
       "type": "virtualbox-iso",
-      "iso_url": "https://d3g5gsiof5omrk.cloudfront.net/nixos/17.09/nixos-17.09.2281.b4a0c011e81/nixos-minimal-17.09.2281.b4a0c011e81-x86_64-linux.iso",
-      "iso_checksum": "d50856afa2c86faf68cd725db027b58db82ee23c48f6c18932a847013fa9fae0",
+      "iso_url": "https://d3g5gsiof5omrk.cloudfront.net/nixos/18.03/nixos-18.03.131768.a74969256b0/nixos-minimal-18.03.131768.a74969256b0-x86_64-linux.iso",
+      "iso_checksum": "3e69dda42a52be0c216bd963f39ecaef65572d5bf40575e2e2160ccc84e3fa98",
       "guest_additions_mode": "disable",
       "guest_os_type": "Linux_64",
       "vboxmanage": [
@@ -39,7 +39,7 @@
     [
       {
         "type": "vagrant",
-        "output": "nixos-17.09-workstation-{{.Provider}}.box"
+        "output": "nixos-18.03-workstation-{{.Provider}}.box"
       }
     ]
   ]
