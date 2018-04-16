@@ -100,6 +100,7 @@
     gitAndTools.gitFull
     hunspell
     hunspellDicts.en-us
+	kubernetes
     p7zip
     tree
   ];
