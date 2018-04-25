@@ -68,6 +68,7 @@
 
   # Enable docker.
   virtualisation.docker.enable = true;
+  virtualisation.docker.autoPrune.enable = true;
 
   fileSystems."/efs/servicedata" =
     {
@@ -81,6 +82,9 @@
       fsType = "nfs";
     };
 
+  # allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+  
   # Packages for Vagrant
   environment.systemPackages = with pkgs; [
     findutils
@@ -94,7 +98,7 @@
     (python27.withPackages(ps: with ps; [ pip virtualenv wheel jedi flake8 yapf ]))
     (python36.withPackages(ps: with ps; [ pip wheel jedi flake8 yapf ]))
     curlFull
-    docker-edge
+    docker
     emacs
     firefox
     gitAndTools.gitFull
