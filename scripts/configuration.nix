@@ -102,10 +102,11 @@
     emacs
     firefox
     gitAndTools.gitFull
+	gzip
     hunspell
     hunspellDicts.en-us
 	kubernetes
-    p7zip
+    runc
     tree
   ];
 
