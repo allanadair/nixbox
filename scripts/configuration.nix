@@ -72,13 +72,13 @@
 
   fileSystems."/efs/servicedata" =
     {
-      device = "gdo-servicedata.gdo.aws.:/servicedata/";
+      device = "gdo-servicedata.gdo.aws:/servicedata/";
       fsType = "nfs";
     };
 
   fileSystems."/efs/sharedarcgis" =
     {
-      device = "k8s-prod2-prereq-agsbackbone.gdo.aws.:/sharedarcgis/";
+      device = "k8sagsbackend.gdo.aws:/sharedarcgis/";
       fsType = "nfs";
     };
 
@@ -95,19 +95,9 @@
     netcat
     nfs-utils
     rsync
-    (python27.withPackages(ps: with ps; [ pip virtualenv wheel jedi flake8 yapf ]))
-    (python36.withPackages(ps: with ps; [ pip wheel jedi flake8 yapf ]))
-    curlFull
     docker
-    emacs
     firefox
     gitAndTools.gitFull
-	gzip
-    hunspell
-    hunspellDicts.en-us
-	kubernetes
-    runc
-    tree
   ];
 
   # Users that are part of the wheel group will not be prompted for password

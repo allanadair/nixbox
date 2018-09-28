@@ -1,5 +1,5 @@
 Vagrant.configure("2") do |config|
-  config.vm.box = "nixos-18.03-workstation-virtualbox.box"
+  config.vm.box = "nixos-18.03.133224.5f59ab7d4e0-workstation-virtualbox.box"
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
@@ -15,7 +15,7 @@ Vagrant.configure("2") do |config|
     vb.customize ["modifyvm", :id, "--vram", "128"]
     vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     vb.gui = true
-    vb.name = "nixos-workstation-18.03"
+    vb.name = "nixos-workstation-18.03.133224.5f59ab7d4e0"
   end
 
   config.vm.provision :file do |file|

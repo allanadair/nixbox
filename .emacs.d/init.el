@@ -69,9 +69,6 @@
   (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode))
   )
 
-;; docker
-(use-package docker)
-
 ;; dockerfile
 (use-package dockerfile-mode
   :config
@@ -96,6 +93,3 @@
   :config
   (global-undo-tree-mode)
   )
-
-;; kubernetes
-(use-package kubernetes)
