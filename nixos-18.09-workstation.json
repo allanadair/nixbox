@@ -16,8 +16,8 @@
       "ssh_username": "root",
       "type": "virtualbox-iso",
 	  "disk_size": 100000,
-      "iso_url": "https://d3g5gsiof5omrk.cloudfront.net/nixos/18.03/nixos-18.03.133224.5f59ab7d4e0/nixos-minimal-18.03.133224.5f59ab7d4e0-x86_64-linux.iso",
-      "iso_checksum": "4dd031a0b378b42c3128c8f5e821f103fb897abaef7a9e4ef451ce2cafc7c6e5",
+      "iso_url": "https://d3g5gsiof5omrk.cloudfront.net/nixos/18.09/nixos-18.09.807.1ada6fcde10/nixos-minimal-18.09.807.1ada6fcde10-x86_64-linux.iso",
+      "iso_checksum": "6ec5661d99d73f01b4564707b488d2ea77526dac19826551f378c37f0801ebcf",
       "guest_additions_mode": "disable",
       "guest_os_type": "Linux_64",
       "vboxmanage": [
@@ -40,7 +40,7 @@
     [
       {
         "type": "vagrant",
-        "output": "nixos-18.03.133224.5f59ab7d4e0-workstation-{{.Provider}}.box"
+        "output": "nixos-18.09-workstation-{{.Provider}}.box"
       }
     ]
   ]

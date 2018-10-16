@@ -52,13 +52,13 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
   services.xserver.layout = "no";
-
-  # Enable the KDE Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.displayManager.sddm.autoLogin.enable = true;
-  services.xserver.displayManager.sddm.autoLogin.relogin = true;
-  services.xserver.displayManager.sddm.autoLogin.user = "vagrant";
-  services.xserver.desktopManager.plasma5.enable = true;
+  
+  # Enable gnome desktop environment.
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.displayManager.gdm.autoLogin.enable = true;
+  services.xserver.displayManager.gdm.autoLogin.user = "vagrant";
+  services.xserver.displayManager.gdm.wayland = true;
+  services.xserver.desktopManager.gnome3.enable = true;
 
   # Replace nptd by timesyncd.
   services.timesyncd.enable = true;
@@ -70,17 +70,15 @@
   virtualisation.docker.enable = true;
   virtualisation.docker.autoPrune.enable = true;
 
-  fileSystems."/efs/servicedata" =
-    {
+  fileSystems."/efs/servicedata" = {
       device = "gdo-servicedata.gdo.aws:/servicedata/";
       fsType = "nfs";
-    };
+  };
 
-  fileSystems."/efs/sharedarcgis" =
-    {
+  fileSystems."/efs/sharedarcgis" = {
       device = "k8sagsbackend.gdo.aws:/sharedarcgis/";
       fsType = "nfs";
-    };
+  };
 
   # allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -95,34 +93,84 @@
     netcat
     nfs-utils
     rsync
+    curlFull
     docker
     firefox
-    gitAndTools.gitFull
+    gnupg
+    kubectl
+    zile
   ];
+  
+  # Environment settings for guix
+  environment.interactiveShellInit = ''
+    export PATH="$PATH:/usr/local/bin";
+    export INFOPATH="$INFOPATH:/usr/local/share/info";
+    export GUIX_LOCPATH="$HOME/.guix-profile/lib/locale";
+  '';
 
   # Users that are part of the wheel group will not be prompted for password
   security.sudo.wheelNeedsPassword = false;
   
   # Creates a "vagrant" users with password-less sudo access
   users = {
-    extraGroups = [ { name = "vagrant"; } { name = "vboxsf"; } ];
-    extraUsers  = [
-      # Try to avoid ask password
-      { name = "root"; password = "vagrant"; }
-      {
-        description     = "Vagrant User";
-        name            = "vagrant";
-        group           = "vagrant";
-        extraGroups     = [ "users" "vboxsf" "wheel" "docker" ];
-        password        = "vagrant";
-        home            = "/home/vagrant";
-        createHome      = true;
-        useDefaultShell = true;
-        openssh.authorizedKeys.keys = [
-          "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA6NF8iallvQVp22WDkTkyrtvp9eWW6A8YVr+kz4TjGYe7gHzIw+niNltGEFHzD8+v1I2YJ6oXevct1YeS0o9HZyN1Q9qgCgzUFtdOKLv6IedplqoPkcmF0aYet2PkEDo3MlTBckFXPITAMzF8dJSIFo9D8HfdOV0IAdx4O7PtixWKn5y2hMNG0zQPyUecp4pzC6kivAIhyfHilFR61RGL+GPXQ2MWZWFYbAGjyiYJnAmCP3NOTd0jMZEnDkbUvxhMmBYSdETk1rRgm+R4LOzFUGaHqHDLKLX+FIPKcF96hrucXzcWyLbIbEgE98OHlnVYCzRdK8jlqm8tehUc9c9WhQ== vagrant insecure public key"
-        ];
-      }
-    ];
-  };
+    mutableUsers = false;
 
+    extraGroups = [ { name = "vagrant"; } { name = "vboxsf"; } { name = "guixbuild"; } ];
+
+    extraUsers =
+      let
+        vagrantUser = {
+          vagrant = {
+            description     = "Vagrant User";
+            name            = "vagrant";
+            group           = "vagrant";
+            extraGroups     = [ "users" "vboxsf" "wheel" "docker" ];
+            password        = "vagrant";
+            home            = "/home/vagrant";
+            createHome      = true;
+            useDefaultShell = true;
+            openssh.authorizedKeys.keys = [
+              "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA6NF8iallvQVp22WDkTkyrtvp9eWW6A8YVr+kz4TjGYe7gHzIw+niNltGEFHzD8+v1I2YJ6oXevct1YeS0o9HZyN1Q9qgCgzUFtdOKLv6IedplqoPkcmF0aYet2PkEDo3MlTBckFXPITAMzF8dJSIFo9D8HfdOV0IAdx4O7PtixWKn5y2hMNG0zQPyUecp4pzC6kivAIhyfHilFR61RGL+GPXQ2MWZWFYbAGjyiYJnAmCP3NOTd0jMZEnDkbUvxhMmBYSdETk1rRgm+R4LOzFUGaHqHDLKLX+FIPKcF96hrucXzcWyLbIbEgE98OHlnVYCzRdK8jlqm8tehUc9c9WhQ== vagrant insecure public key"
+            ];
+          };
+        };
+        buildUser = (i:
+          {
+            "guixbuilder${i}" = {                   # guixbuilder$i
+              group = "guixbuild";                  # -g guixbuild
+              extraGroups = ["guixbuild"];          # -G guixbuild
+              home = "/var/empty";                  # -d /var/empty
+              shell = pkgs.nologin;                 # -s `which nologin`
+              description = "Guix build user ${i}"; # -c "Guix buid user $i"
+              isSystemUser = true;                  # --system
+            };
+          }
+        );
+      in
+        # merge all users
+        pkgs.lib.fold (str: acc: acc // buildUser str)
+                      vagrantUser
+                      # for i in `seq -w 1 10`
+                      (map (pkgs.lib.fixedWidthNumber 2) (builtins.genList (n: n+1) 10));	
+  };
+  
+  systemd = {
+    services = {
+      # Derived from Guix guix-daemon.service.in
+      # https://git.savannah.gnu.org/cgit/guix.git/tree/etc/guix-daemon.service.in?id=00c86a888488b16ce30634d3a3a9d871ed6734a2
+      guix-daemon = {
+        enable = true;
+        description = "Build daemon for GNU Guix";
+        serviceConfig = {
+          ExecStart = "/var/guix/profiles/per-user/root/guix-profile/bin/guix-daemon --build-users-group=guixbuild";
+          Environment="GUIX_LOCPATH=/root/.guix-profile/lib/locale";
+          RemainAfterExit="yes";
+          StandardOutput="syslog";
+          StandardError="syslog";
+          TaskMax= "8192";
+        };
+        wantedBy = [ "multi-user.target" ];
+      };
+    };
+  };
 }

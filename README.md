@@ -11,7 +11,7 @@ First install [packer](http://packer.io) and
 
 Then:
 ```
-packer build nixos-18.03-workstation.json
+packer build nixos-18.09-workstation.json
 vagrant up
 ```
 
